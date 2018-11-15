@@ -28,6 +28,10 @@ def call(final pipelineContext) {
       component: pipelineContext.getBuildConfig().COMPONENT_PY
     ],
     [
+      stageName: 'Ulimit', target: 'test-pyunit-ulimit', pythonVersion: '3.5', timeoutValue: 8,
+      component: pipelineContext.getBuildConfig().COMPONENT_PY, customDockerArgs: [ '--ulimit nofile=200:200' ]
+    ],
+    [
       stageName: 'R3.4 Smoke', target: 'test-r-smoke', rVersion: '3.4.1',timeoutValue: 8,
       component: pipelineContext.getBuildConfig().COMPONENT_R
     ],
