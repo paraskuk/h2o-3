@@ -76,7 +76,7 @@ public class NetworkInit {
     if (H2O.getServletContainer() == null && !H2O.ARGS.disable_web) {
       final H2OHttpConfig config = webServerParams(H2O.ARGS);
       h2oHttpServer = new H2OHttpViewImpl(config);
-      H2O.setServletContainer(HttpServerLoader.INSTANCE.createServletContainer(h2oHttpServer));
+      H2O.setServletContainer(HttpServerLoader.INSTANCE.createWebServer(h2oHttpServer));
     }
 
     // API socket is only used to find opened port on given ip.

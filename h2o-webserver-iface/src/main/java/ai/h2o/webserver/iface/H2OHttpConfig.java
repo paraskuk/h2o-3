@@ -2,6 +2,9 @@ package ai.h2o.webserver.iface;
 
 import java.util.Map;
 
+/**
+ * Holds configuration relevant to HTTP server.
+ */
 public class H2OHttpConfig {
 
   /**

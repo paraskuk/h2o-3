@@ -25,7 +25,7 @@ public class ProxyStarter {
     final H2O.OptArgs baseArgs = H2O.parseH2OArgumentsTo(args, new H2O.OptArgs());
     final H2OHttpConfig config = NetworkInit.webServerParams(baseArgs);
     final H2OHttpViewImpl h2oDock = new H2OHttpViewImpl(config);
-    final ProxyServer proxy = HttpServerLoader.INSTANCE.createProxy(h2oDock, credentials, proxyTo);
+    final ProxyServer proxy = HttpServerLoader.INSTANCE.createProxyServer(h2oDock, credentials, proxyTo);
     final int proxyPort = initializeProxy(proxy, config);
 
     InetAddress address = HostnameGuesser.findInetAddressForSelf(baseArgs.ip, baseArgs.network);

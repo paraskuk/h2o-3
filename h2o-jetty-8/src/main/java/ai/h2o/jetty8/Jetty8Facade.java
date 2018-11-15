@@ -8,12 +8,12 @@ import ai.h2o.webserver.iface.WebServer;
 
 public class Jetty8Facade implements HttpServerFacade {
   @Override
-  public WebServer createServletContainer(H2OHttpView h2oHttpView) {
+  public WebServer createWebServer(H2OHttpView h2oHttpView) {
     return Jetty8ServerAdapter.create(h2oHttpView);
   }
 
   @Override
-  public ProxyServer createProxy(H2OHttpView h2oHttpView, Credentials credentials, String proxyTo) {
+  public ProxyServer createProxyServer(H2OHttpView h2oHttpView, Credentials credentials, String proxyTo) {
     return Jetty8ProxyServerAdapter.create(h2oHttpView, credentials, proxyTo);
   }
 }
