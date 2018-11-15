@@ -1,9 +1,9 @@
 package water.init;
 
-import ai.h2o.webserver.H2OHttpServerImpl;
-import ai.h2o.webserver.iface.H2OServletContainerLoader;
+import ai.h2o.webserver.H2OHttpViewImpl;
+import ai.h2o.webserver.iface.H2OHttpConfig;
+import ai.h2o.webserver.iface.HttpServerLoader;
 import ai.h2o.webserver.iface.LoginType;
-import ai.h2o.webserver.iface.WebServerConfig;
 import water.H2O;
 import water.H2ONode;
 import water.server.ServletUtils;
@@ -43,7 +43,7 @@ public class NetworkInit {
 
   public static ServerSocketChannel _tcpSocket;
 
-  public static H2OHttpServerImpl h2oHttpServer;
+  public static H2OHttpViewImpl h2oHttpServer;
 
   public static InetAddress findInetAddressForSelf() throws Error {
     if (H2O.SELF_ADDRESS != null)
@@ -74,9 +74,9 @@ public class NetworkInit {
 
     // Late instantiation of web server, if needed.
     if (H2O.getServletContainer() == null && !H2O.ARGS.disable_web) {
-      final WebServerConfig config = webServerParams(H2O.ARGS);
-      h2oHttpServer = new H2OHttpServerImpl(config);
-      H2O.setServletContainer(H2OServletContainerLoader.INSTANCE.createServletContainer(h2oHttpServer));
+      final H2OHttpConfig config = webServerParams(H2O.ARGS);
+      h2oHttpServer = new H2OHttpViewImpl(config);
+      H2O.setServletContainer(HttpServerLoader.INSTANCE.createServletContainer(h2oHttpServer));
     }
 
     // API socket is only used to find opened port on given ip.
@@ -197,8 +197,8 @@ public class NetworkInit {
     H2O.CLOUD_MULTICAST_PORT = NetworkUtils.getMulticastPort(hash);
   }
 
-  public static WebServerConfig webServerParams(H2O.OptArgs args) {
-    final WebServerConfig params = new WebServerConfig();
+  public static H2OHttpConfig webServerParams(H2O.OptArgs args) {
+    final H2OHttpConfig params = new H2OHttpConfig();
     params.jks = args.jks;
     params.jks_pass = args.jks_pass;
     params.loginType = parseLoginType(args);

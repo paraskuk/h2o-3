@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 
-public interface H2OHttpServer {
+public interface H2OHttpView {
 
   LinkedHashMap<String, Class<? extends HttpServlet>> getServlets();
 
@@ -17,7 +17,7 @@ public interface H2OHttpServer {
 
   boolean loginHandler(String target, HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-  WebServerConfig getConfig();
+  H2OHttpConfig getConfig();
 
   Collection<RequestAuthExtension> getAuthExtensions();
 

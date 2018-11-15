@@ -1,10 +1,10 @@
 package water;
 
-import ai.h2o.webserver.H2OHttpServerImpl;
+import ai.h2o.webserver.H2OHttpViewImpl;
 import ai.h2o.webserver.iface.Credentials;
-import ai.h2o.webserver.iface.H2OProxy;
-import ai.h2o.webserver.iface.H2OServletContainerLoader;
-import ai.h2o.webserver.iface.WebServerConfig;
+import ai.h2o.webserver.iface.H2OHttpConfig;
+import ai.h2o.webserver.iface.HttpServerLoader;
+import ai.h2o.webserver.iface.ProxyServer;
 import water.init.HostnameGuesser;
 import water.init.NetworkInit;
 
@@ -23,9 +23,9 @@ public class ProxyStarter {
     }
 
     final H2O.OptArgs baseArgs = H2O.parseH2OArgumentsTo(args, new H2O.OptArgs());
-    final WebServerConfig config = NetworkInit.webServerParams(baseArgs);
-    final H2OHttpServerImpl h2oDock = new H2OHttpServerImpl(config);
-    final H2OProxy proxy = H2OServletContainerLoader.INSTANCE.createProxy(h2oDock, credentials, proxyTo);
+    final H2OHttpConfig config = NetworkInit.webServerParams(baseArgs);
+    final H2OHttpViewImpl h2oDock = new H2OHttpViewImpl(config);
+    final ProxyServer proxy = HttpServerLoader.INSTANCE.createProxy(h2oDock, credentials, proxyTo);
     final int proxyPort = initializeProxy(proxy, config);
 
     InetAddress address = HostnameGuesser.findInetAddressForSelf(baseArgs.ip, baseArgs.network);
@@ -49,7 +49,7 @@ public class ProxyStarter {
     return hostname;
   }
 
-  private static int initializeProxy(H2OProxy proxy, WebServerConfig config) {
+  private static int initializeProxy(ProxyServer proxy, H2OHttpConfig config) {
     int proxyPort = config.port == 0 ? config.baseport : config.port;
 
     // PROXY socket is only used to find opened port on given ip

@@ -7,8 +7,8 @@ package ai.h2o.webserver.iface;
  *
  * This interface is supposed to hide all those dependencies.
  */
-public interface H2OServletContainerFacade {
-  H2OServletContainer createServletContainer(H2OHttpServer params);
+public interface HttpServerFacade {
+  WebServer createServletContainer(H2OHttpView params);
 
-  H2OProxy createProxy(H2OHttpServer h2oHttpServer, Credentials credentials, String proxyTo);
+  ProxyServer createProxy(H2OHttpView h2oHttpView, Credentials credentials, String proxyTo);
 }

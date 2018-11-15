@@ -2,7 +2,7 @@ package ai.h2o.webserver.iface;
 
 import java.util.Map;
 
-public class WebServerConfig {
+public class H2OHttpConfig {
 
   /**
    * Prefix of hidden system properties, same as in H2O.OptArgs.SYSTEM_PROP_PREFIX.

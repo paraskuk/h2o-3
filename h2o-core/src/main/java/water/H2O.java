@@ -1,6 +1,6 @@
 package water;
 
-import ai.h2o.webserver.iface.H2OServletContainer;
+import ai.h2o.webserver.iface.WebServer;
 import hex.ModelBuilder;
 import jsr166y.CountedCompleter;
 import jsr166y.ForkJoinPool;
@@ -1487,11 +1487,11 @@ final public class H2O {
   // as part of joining the cluster so all nodes have the same value.
   public static final long CLUSTER_ID = System.currentTimeMillis();
 
-  private static H2OServletContainer servletContainer;
-  public static void setServletContainer(H2OServletContainer value) {
+  private static WebServer servletContainer;
+  public static void setServletContainer(WebServer value) {
     servletContainer = value;
   }
-  public static H2OServletContainer getServletContainer() {
+  public static WebServer getServletContainer() {
     return servletContainer;
   }
 
